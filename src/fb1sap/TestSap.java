@@ -204,7 +204,7 @@ public class TestSap {
 		System.out.println(listData);		
 		System.out.println("**************獲取Table結束****************");
 		//印出看
-		CommonFunctions.printJCoTableAddlist(table);
+		CommonFunctions.printJCoTable(table);
 		CommonFunctions.showTableStructure(table);
 		//待研究
 //		// Move the table cursor to first row

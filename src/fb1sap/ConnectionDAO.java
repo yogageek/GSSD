@@ -24,7 +24,7 @@ public class ConnectionDAO implements I_Connection {
 		connectProperties.setProperty(DestinationDataProvider.JCO_USER, "sfc");
 		connectProperties.setProperty(DestinationDataProvider.JCO_PASSWD, "foxestar");
 		connectProperties.setProperty(DestinationDataProvider.JCO_LANG, "ZH");
-		connectProperties.getProperty(DestinationDataProvider.JCO_CODEPAGE,"4110");//糂礮
+		connectProperties.getProperty(DestinationDataProvider.JCO_CODEPAGE,"8400");//糂礮
 //		connectProperties.setProperty(DestinationDataProvider.JCO_EXPIRATION_TIME, "9999999999");
 //		connectProperties.setProperty(DestinationDataProvider.JCO_EXPIRATION_PERIOD, "9999999999");
 //		connectProperties.setProperty(DestinationDataProvider.JCO_MAX_GET_TIME, "9999999999");
@@ -96,7 +96,8 @@ public class ConnectionDAO implements I_Connection {
 	//............	
 
 	public static void main(String[] args) throws JCoException {
-		//ConnectionDAO con = new ConnectionDAO();
+		ConnectionDAO con = new ConnectionDAO();
+		con.accessSAPStructure();
 	}
 
 }

@@ -2,6 +2,7 @@ package fb1sap;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
@@ -91,19 +92,17 @@ public class CommonFunctions {
 		return list;
 	}
 
-	//印出所資料+處理日期格式+addlist回傳
+	//印出所有資料+處理日期格式+addlist回傳
 	// JCo中，與表參數相關的兩個接口是JCoTable和JCoRecordMetaDta, JCoTable就是RFM中table參數，而JCoRecordMetaDta是JCoTable或JCoStructure的元數據。為了方便顯示，可以考慮使用一個通用代碼進行輸出：  
 	public static List<List<String>> printJCoTable(JCoTable tb) {
 		List<List<String>> listData = new ArrayList<List<String>>();		
-		// header
-		// JCoRecordMeataData is the meta data of either a structure or a tb.
-		// Each element describes a field of the structure or tb.
-		JCoRecordMetaData tableMeta = tb.getRecordMetaData();
+		// header 欄位名
+		JCoRecordMetaData tableMeta = tb.getRecordMetaData();//JCoRecordMeataData is the meta data of either a structure or a tb. Each element describes a field of the structure or tb.
 		for (int i = 0; i < tableMeta.getFieldCount(); i++) {
 			System.out.print(String.format("%s\t\t", tableMeta.getName(i)));
 		}
 		System.out.println(); // new line		
-		// line items
+		// line items 欄位資料
 		for (int i = 0; i < tb.getNumRows(); i++) {			
 			// Sets the row pointer to the specified position(beginning from zero)						
 			tb.setRow(i);
@@ -133,8 +132,13 @@ public class CommonFunctions {
 		return listData;
 	}
 	
-	//印出所資料+處理日期格式+addlist回傳+轉碼    PS:obpm報錯
-	public static List<List<String>> printJCoTableAddlist(JCoTable tb) throws UnsupportedEncodingException {
+	//印出所資料+處理日期格式+addlist回傳+轉換編碼存入txt    PS:obpm報錯  
+	public static List<List<String>> printJCoTableAddlist(JCoTable tb) throws IOException {
+		FileWriter writer1 = new FileWriter("ISO-8859-1_to_GB2312.txt");		
+		FileWriter writer2 = new FileWriter("BIG5_to_GB2312.txt");			
+		FileWriter writer3 = new FileWriter("BIG5_to_UTF-8.txt");
+		FileWriter writer4= new FileWriter("ISO-8859-1_to_UTF-8.txt");
+		
 		List<List<String>> listData = new ArrayList<List<String>>();		
 		// headerJCoRecordMeataData is the meta data of either a structure or a tb. Each element describes a field of the structure or tb.
 		JCoRecordMetaData tableMeta = tb.getRecordMetaData();
@@ -144,7 +148,7 @@ public class CommonFunctions {
 		System.out.println(); // new line
 
 		// line items
-		for (int i = 0; i < tb.getNumRows(); i++) {
+		for (int i = 3000; i < tb.getNumRows(); i++) { //從第3000筆開始取就好
 			// Sets the row pointer to the specified position(beginning from zero)
 			tb.setRow(i);
 			// Each line is of type JCoStructure
@@ -161,25 +165,34 @@ public class CommonFunctions {
 						e.printStackTrace();
 					}
 				} else {
-					String str=fld.getValue().toString();
-					str=new String(str.getBytes("ISO8859-1"),"GBK");
-					list.add(fld.getValue());
-				}
-				//System.out.print(String.format("%s\t", fld.getValue()));
-				String str=fld.getValue().toString();
-				str=new String(str.getBytes("ISO-8859-1"),"GBK");
-//				str=new String(str.getBytes("GBK"),"UTF-8");
-//				str=new String(str.getBytes("UTF-8"),"ISO8859-1");
+//					String str=fld.getValue().toString();
+//					str=new String(str.getBytes("ISO8859-1"),"GBK");
+					list.add(fld.getValue());					
+				}	
+				
+				String str=fld.getValue().toString();				
+				String str1=new String(str.getBytes("ISO-8859-1"),"GB2312");
+				String str2=new String(str.getBytes("BIG5"),"GB2312");
+				String str3=new String(str.getBytes("BIG5"),"UTF-8");
+				String str4=new String(str.getBytes("ISO-8859-1"),"UTF-8");				
+				writer1.write(str1+System.getProperty("line.separator"));					
+				writer2.write(str2+System.getProperty("line.separator"));
+				writer3.write(str3+System.getProperty("line.separator"));
+				writer4.write(str3+System.getProperty("line.separator"));
 //				String encodedWithISO88591 = "代刚";
 //				String decodedToUTF8 = new String(encodedWithISO88591.getBytes("ISO-8859-1"), "UTF-8");
 //				System.out.println("decodedToUTF8"+decodedToUTF8);
 //				str=new String(str.getBytes("UTF8"),"ISO8859-1");
 //				System.out.print(str);
 				System.out.print(String.format("%s\t", str));
-			}
+			}			
 			listData.add(list);
 			System.out.println();			
 		}		
+		writer1.close();
+		writer2.close();
+		writer3.close();
+		writer4.close();
 		return listData;
 	}
 	//addlist回傳
@@ -295,7 +308,7 @@ public class CommonFunctions {
 	
 	//將list寫入excel
 	public static void writeExcel(List<List<String>> list) {
-	    String outputFile = "C:/Users/Administrator/Desktop/write.xlsx";	    
+	    String outputFile = "C:/Users/Administrator/Desktop/writeExcel.xlsx";	    
 
 	    try {
 	        // 創建新的Excel 工作簿

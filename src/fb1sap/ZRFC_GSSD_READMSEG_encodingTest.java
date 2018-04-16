@@ -1,6 +1,5 @@
 package fb1sap;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoTable;
 
-public class ZRFC_GSSD_READMSEG {
+public class ZRFC_GSSD_READMSEG_encodingTest {
 	public static List<List<String>> ListData = new ArrayList<List<String>>();
 	public static String ErrorMsg = "";
 
@@ -59,9 +58,8 @@ public class ZRFC_GSSD_READMSEG {
 
 		// 印出回傳table(同時放入list)
 		System.out.println("印出回傳table-------------------------------------------------------");
-		ListData = CommonFunctions.printJCoTable(table);
-//		ListData = CommonFunctions.printJCoTableAddlist(table);
-
+//		ListData = CommonFunctions.printJCoTable(table);
+		ListData = CommonFunctions.printJCoTableAddlist(table);
 		// 印出list
 		// System.out.println("-------------------------------------------------------------------------");
 		// System.out.println(ListData);
@@ -79,16 +77,8 @@ public class ZRFC_GSSD_READMSEG {
 //		}		 
 	}
 
-	public static void main(String[] args) throws JCoException, IOException {
+	public static void main(String[] args) throws JCoException, IOException {	 
 		getZRFC_GSSD_READMSEG("AXVA", "", "", "", "20180303", "", "20180303", "");
-		System.out.println(ListData.size());
-		//寫入excel
-		//CommonFunctions.writeExcel(ListData);
-		//寫入txt
-		// FileWriter writer = new FileWriter("output.txt");
-		// for(List<String> str: ListData) {
-		// writer.write(str.get(5));
-		// }
-		// writer.close();
+		//第62行使用printJCoTableAddlist印出所資料+處理日期格式+addlist回傳+轉換編碼存入txt
 	}
 }
