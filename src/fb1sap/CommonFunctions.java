@@ -134,6 +134,7 @@ public class CommonFunctions {
 	
 	//印出所資料+處理日期格式+addlist回傳+轉換編碼存入txt    PS:obpm報錯  
 	public static List<List<String>> printJCoTableAddlist(JCoTable tb) throws IOException {
+		FileWriter writer = new FileWriter("Original.txt");
 		FileWriter writer1 = new FileWriter("ISO-8859-1_to_GB2312.txt");		
 		FileWriter writer2 = new FileWriter("BIG5_to_GB2312.txt");			
 		FileWriter writer3 = new FileWriter("BIG5_to_UTF-8.txt");
@@ -148,7 +149,7 @@ public class CommonFunctions {
 		System.out.println(); // new line
 
 		// line items
-		for (int i = 3000; i < tb.getNumRows(); i++) { //從第3000筆開始取就好
+		for (int i = 3507; i < tb.getNumRows(); i++) { //從第3000筆開始取就好
 			// Sets the row pointer to the specified position(beginning from zero)
 			tb.setRow(i);
 			// Each line is of type JCoStructure
@@ -175,6 +176,7 @@ public class CommonFunctions {
 				String str2=new String(str.getBytes("BIG5"),"GB2312");
 				String str3=new String(str.getBytes("BIG5"),"UTF-8");
 				String str4=new String(str.getBytes("ISO-8859-1"),"UTF-8");				
+				writer.write(str+System.getProperty("line.separator"));
 				writer1.write(str1+System.getProperty("line.separator"));					
 				writer2.write(str2+System.getProperty("line.separator"));
 				writer3.write(str3+System.getProperty("line.separator"));
@@ -189,6 +191,7 @@ public class CommonFunctions {
 			listData.add(list);
 			System.out.println();			
 		}		
+		writer.close();
 		writer1.close();
 		writer2.close();
 		writer3.close();
