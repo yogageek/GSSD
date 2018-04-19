@@ -34,14 +34,14 @@ public class ZRFC_GSSD_READMSEG_encodingTest {
 
 		// 傳入參數(字符串方式)
 		JCoParameterList input = function.getImportParameterList();
-		input.setValue("PLANT", plant);
-		input.setValue("PARTNO", partno);
-		input.setValue("MVT", mvt);
-		input.setValue("PONO", pono);
-		input.setValue("DATEFROM", datefrom);
-		input.setValue("TIMEFROM", timefrom);
-		input.setValue("DATETO", dateto);
-		input.setValue("TIMETO", timeto);
+		input.setValue("PLANT", plant);//工廠代碼
+		input.setValue("PARTNO", partno);//料號
+		input.setValue("MVT", mvt);//異動類型
+		input.setValue("PONO", pono);//採購訂單號
+		input.setValue("DATEFROM", datefrom);//異動起始日期
+		input.setValue("TIMEFROM", timefrom);//異動起始時間
+		input.setValue("DATETO", dateto);//異動截至日期
+		input.setValue("TIMETO", timeto);//異動截至時間
 
 		// 執行
 		try {
@@ -78,7 +78,8 @@ public class ZRFC_GSSD_READMSEG_encodingTest {
 	}
 
 	public static void main(String[] args) throws JCoException, IOException {	 
-		getZRFC_GSSD_READMSEG("AXVA", "", "", "", "20180303", "", "20180303", "");
+//		getZRFC_GSSD_READMSEG("AXVA", "", "", "", "20180303", "", "20180303", "");		
+		getZRFC_GSSD_READMSEG("AXVA","677-10199A","101","4503634270", "", "", "", "");//2018.4.19 for dc test		
 		//第62行使用printJCoTableAddlist印出所資料+處理日期格式+addlist回傳+轉換編碼存入txt
 	}
 }
