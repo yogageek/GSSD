@@ -35,14 +35,14 @@ public class ZRFC_GSSD_READMSEG {
 
 		// 傳入參數(字符串方式)
 		JCoParameterList input = function.getImportParameterList();
-		input.setValue("PLANT", plant);//工廠代碼
-		input.setValue("PARTNO", partno);//料號
-		input.setValue("MVT", mvt);//異動類型
-		input.setValue("PONO", pono);//採購訂單號
-		input.setValue("DATEFROM", datefrom);//異動起始日期
-		input.setValue("TIMEFROM", timefrom);//異動起始時間
-		input.setValue("DATETO", dateto);//異動截至日期
-		input.setValue("TIMETO", timeto);//異動截至時間
+		input.setValue("PLANT", plant);
+		input.setValue("PARTNO", partno);
+		input.setValue("MVT", mvt);
+		input.setValue("PONO", pono);
+		input.setValue("DATEFROM", datefrom);
+		input.setValue("TIMEFROM", timefrom);
+		input.setValue("DATETO", dateto);
+		input.setValue("TIMETO", timeto);
 
 		// 執行
 		try {
